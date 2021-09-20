@@ -12,7 +12,7 @@
 	$todays_adjective_error = null;
 	$todays_adjective = null;
 	if(isset($_POST["adjective_submit"])){
-		//echo "Klikiti";
+		echo "Klikiti";
 		//Kontrollime kas midagi kirjutati.
 		if(!empty($_POST["todays_adjective_input"])){
 		$todays_adjective_html = "<p>Tänane päev on ". $_POST["todays_adjective_input"].".</p>";
@@ -21,6 +21,8 @@
 			$todays_adjective_error = "Palun sisesta tänase kohta sobiv omadussõne!";
 		}
 	}
+	
+	
 	
 	// juhusliku foto lisamine
 	
@@ -31,7 +33,7 @@
 	$all_real_files = array_slice($all_files, 2);
 	
 	// * Boonus
-	shuffle($all_real_files);
+	//shuffle($all_real_files);
 	$all_real_files = array_slice($all_real_files, 0, 3);
 
 	
@@ -56,6 +58,15 @@
 	//loosin juhsliku arvu (min = 0, max = count()-1)
 	
 	$photo_num = mt_rand(0, $file_count - 1);
+	
+	//Määran foto vastavalt valikule.
+	if(isset($_POST["photo_submit"])){
+		//echo "Submitted";
+		$photo_num = $_POST["photo_select"];
+		echo $photo_num;
+		
+	}
+	
 	//<img src="kataloog/fail" alt="Tallinna Ülikool">
 	$photo_html = '<img src = "' . $photo_dir . $photo_files[$photo_num] . '" alt ="Tallinna Ülikool">';
 	
@@ -73,6 +84,9 @@
 	}
 	$photo_select_html .= "</select> \n";
 	
+	
+	
+	
 ?>
 
 <!DOCTYPE html>
@@ -86,12 +100,11 @@
 	<p>Tegin selle muutuse</p>
 	<p>See leht on loodud õppetöö raames ja ei sisalda tõsiseltvõetavat sisu.</p>
 	<p>Õppetöö toimus <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
-	<?php 
+	<p><?php 
 		echo $photo_html; 
-		echo $photo_list_html;
-	
-	
-	?>
+		//echo $photo_list_html;
+	?></p>
+	<p><?php echo $photo_files[$photo_num] ?></p>
 
 	<hr>
 	<form method = "POST">
@@ -103,7 +116,8 @@
 	
 	<hr>
 	<form method = "POST">
-		<?php echo $photo_select_html;?>	
+		<?php echo $photo_select_html;?>
+		<input type = "submit" name = "photo_submit" value = "Vali foto">
 	</form>
 	<hr>
 	
