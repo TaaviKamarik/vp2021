@@ -11,6 +11,7 @@
 	$todays_adjective_html = null;
 	$todays_adjective_error = null;
 	$todays_adjective = null;
+
 	if(isset($_POST["adjective_submit"])){
 		echo "Klikiti";
 		//Kontrollime kas midagi kirjutati.
@@ -63,7 +64,7 @@
 	if(isset($_POST["photo_submit"])){
 		//echo "Submitted";
 		$photo_num = $_POST["photo_select"];
-		echo $photo_num;
+		//echo $photo_num;
 		
 	}
 	
@@ -81,10 +82,20 @@
 	
 	$photo_select_html = "\n". '<select name ="photo_select">'."\n";
 	for($i = 0; $i < $file_count; $i++){
-		if($photo_files[$i] == $_POST["photo_select"] ) {
-			$photo_select_html .= '<option value ="'.$i .' select">' .$photo_files[$i] . "</option> \n";
+		if(isset($_POST["photo_select"])){
+		
+			if($photo_files[$i] == $photo_files[$photo_num] ) {
+				
+				$photo_select_html .= '<option value ="'.$i .'" selected = "selected" >' .$photo_files[$i] . "</option> \n";
+			}
+			else{
+				$photo_select_html .= '<option value ="'.$i .'">' .$photo_files[$i] . "</option> \n";
+			}
+		}else{
+			$photo_select_html .= '<option value ="'.$i .'">' .$photo_files[$i] . "</option> \n";
 		}
-		$photo_select_html .= '<option value ="'.$i .'">' .$photo_files[$i] . "</option> \n";
+		
+		
 	}
 	$photo_select_html .= "</select> \n";
 	
@@ -127,4 +138,4 @@
 	
 	
 </body>
-</html>q
+</html>
