@@ -27,7 +27,7 @@
 	
 	// juhusliku foto lisamine
 	
-	$photo_dir = "Photos/";
+	$photo_dir = "../Photos/";
 	// loen kataloogi sisu
 	
 	$all_files = scandir($photo_dir);
