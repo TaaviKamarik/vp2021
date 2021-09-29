@@ -209,7 +209,7 @@
 	  <input name="user_data_submit" type="submit" value="Loo kasutaja"><span><?php echo $notice; ?></span>
 	</form>
 	<hr>
-    <p>Tagasi <a href="page.php">avalehele</a></p>
+    <p>Tagasi <a href="page2.php">avalehele</a></p>
 	
   </body>
 </html>

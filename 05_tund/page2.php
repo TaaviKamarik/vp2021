@@ -2,6 +2,8 @@
 
 	// * Muutsin ajavööndit.
 	date_default_timezone_set('Europe/Tallinn');
+	require_once("../../../config.php");
+	require_once("fnc_user.php");
 	$author_name = "Taavi Kamarik";
 	
 	//kontrollin kas POST info jõuab kuhugi.
@@ -99,6 +101,11 @@
 	}
 	$photo_select_html .= "</select> \n";
 	
+	$notice = null;
+	if(isset($_POST["login_submit"])){
+		$notice = sign_in($_POST["email_input"], $_POST["password_input"]);
+	}
+	
 	
 	
 	
@@ -120,7 +127,12 @@
 		//echo $photo_list_html;
 	?></p>
 	<p><?php echo $photo_files[$photo_num] ?></p>
-
+	<hr>
+	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
+		<input type="email" name="email_input" placeholder="Kasutajatunnus e email">
+		<input type="password" name ="password_input" placeholder = "salasõna">
+		<input type = "submit" name="login_submit" value= "Logi sisse"><span><?php echo $notice; ?></span>
+	<p>Loo omale <a href="add_user.php">kasutajakonto</a></p>
 	<hr>
 	<form method = "POST">
 		<input  type = "text" placeholder = "Omadussõna tänase päeva kohta" name="todays_adjective_input" value = "<?php echo $todays_adjective?>">
