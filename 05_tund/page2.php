@@ -1,4 +1,5 @@
 <?php
+	session_start();
 
 	// * Muutsin ajavööndit.
 	date_default_timezone_set('Europe/Tallinn');
@@ -13,6 +14,7 @@
 	$todays_adjective_html = null;
 	$todays_adjective_error = null;
 	$todays_adjective = null;
+	$email = null;
 
 	if(isset($_POST["adjective_submit"])){
 		echo "Klikiti";
@@ -102,8 +104,10 @@
 	$photo_select_html .= "</select> \n";
 	
 	$notice = null;
-	if(isset($_POST["login_submit"])){
+	if(isset($_POST["login_submit"]) and $_POST["email_input"] != null and strlen($_POST["password_input"]) > 8){
+		echo "Test";
 		$notice = sign_in($_POST["email_input"], $_POST["password_input"]);
+		$email = filter_var($_POST["email_input"],FILTER_VALIDATE_EMAIL);
 	}
 	
 	
@@ -129,7 +133,7 @@
 	<p><?php echo $photo_files[$photo_num] ?></p>
 	<hr>
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
-		<input type="email" name="email_input" placeholder="Kasutajatunnus e email">
+		<input type="email" name="email_input"  placeholder="Kasutajatunnus e email" value = "<?php echo $email?>">
 		<input type="password" name ="password_input" placeholder = "salasõna">
 		<input type = "submit" name="login_submit" value= "Logi sisse"><span><?php echo $notice; ?></span>
 	<p>Loo omale <a href="add_user.php">kasutajakonto</a></p>
